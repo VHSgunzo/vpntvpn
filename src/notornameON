@@ -1,0 +1,11 @@
+#!/bin/bash
+sleep 8
+set -x
+
+# Enable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=1
+
+ls /dev/pts/ | cat > /tmp/ttyold && xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar && ls /dev/pts/ | cat > /tmp/ttynew && grep -vf /tmp/ttyold /tmp/ttynew | sort -u > /tmp/tty
+namespace=$(sed '1!d' /tmp/tty)
+
+sudo ./ttyecho -n /dev/pts/$namespace "sudo ip netns exec protected sudo -u $USER -i"

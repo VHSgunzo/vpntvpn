@@ -1,0 +1,16 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+dist=$(cat /tmp/dist)
+vpn_tty=$(sed '1!d' /tmp/ttyvpn | cut -c 10-)
+
+sudo mv /etc/NetworkManager/NetworkManager.old /etc/NetworkManager/NetworkManager.conf
+nm_pid=$(sudo pidof NetworkManager)
+sudo kill -HUP $nm_pid
+
+vpn_pid=$(ps -ft pts/$vpn_tty | awk 'NR==4{print$2}')
+sudo kill -2 $vpn_pid
+rm -r /tmp/ttyvpn
+xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar --hide-borders --working-directory=$dist -e "./nameOFF_Wi-Fi"
+sudo service tor stop

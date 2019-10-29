@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -x
+
+wifi_phy=$(cat /tmp/wifi_phy)
+hotspot=$(sed '1!d' /tmp/tty)
+wifi_iface=$(sed '4!d' variables.conf)
+
+sudo ./create_ap --stop $wifi_iface
+
+sudo ./ttyecho -n /dev/pts/$hotspot exit
+sudo ./ttyecho -n /dev/pts/$hotspot exit
+
+# Remove Wi-Fi iface from namespace
+sudo ip netns exec protected iw phy $wifi_phy set netns 1
+
+# Remove namespace
+sudo ip -all netns delete
+
+# Disable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=0
+
+# Remove trash
+sudo rm -r /tmp/tty /tmp/dist /tmp/wifi_phy /tmp/ttyold /tmp/ttynew /etc/netns/protected

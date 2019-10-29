@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -x
+
+namespace=$(sed '1!d' /tmp/tty)
+
+sudo ./ttyecho -n /dev/pts/$namespace exit
+sudo ./ttyecho -n /dev/pts/$namespace exit
+
+# Remove namespace
+sudo ip -all netns delete
+
+# Disable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=0
+
+# Remove trash
+sudo rm -r  /tmp/tty /tmp/dist /tmp/ttyold /tmp/ttynew /etc/netns/protected

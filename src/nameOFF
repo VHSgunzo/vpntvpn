@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -x
+
+namespace=$(sed '1!d' /tmp/tty)
+tor_nyx=$(sed '2!d' /tmp/tty)
+
+tor_nyx_pid=$(ps -ft pts/$tor_nyx | awk 'NR==3{print$2}')
+sudo kill -2 $tor_nyx_pid
+
+sudo ./ttyecho -n /dev/pts/$namespace exit
+sudo ./ttyecho -n /dev/pts/$namespace exit
+sudo ./ttyecho -n /dev/pts/$tor_nyx exit
+
+# Remove namespace
+sudo ip -all netns delete
+
+# Disable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=0
+
+# Remove trash
+sudo rm -r  /tmp/tty /tmp/dist /tmp/ttyold /tmp/ttynew /etc/netns/protected

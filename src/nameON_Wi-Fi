@@ -1,0 +1,19 @@
+#!/bin/bash
+sleep 12
+set -x
+
+dist=$(cat /tmp/dist)
+wifi_phy=$(cat /tmp/wifi_phy)
+
+# Enable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# Add Wi-Fi iface to namespace
+sudo iw phy $wifi_phy set netns name protected
+
+ls /dev/pts/ | cat > /tmp/ttyold && xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar && xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar && ls /dev/pts/ | cat > /tmp/ttynew && grep -vf /tmp/ttyold /tmp/ttynew | sort -u > /tmp/tty
+hotspot=$(sed '1!d' /tmp/tty)
+tor_nyx=$(sed '2!d' /tmp/tty)
+sudo ./ttyecho -n /dev/pts/$tor_nyx "sudo nyx"
+sudo ./ttyecho -n /dev/pts/$hotspot "sudo ip netns exec protected sudo -u $USER -i"
+sudo ./ttyecho -n /dev/pts/$hotspot $dist/HotSpotON

@@ -1,0 +1,12 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+tun=$(sudo ifconfig | grep tun | cut -c -4)
+wifi_iface=$(sed '4!d' variables.conf)
+wifi_name=$(sed '5!d' variables.conf)
+wifi_pass=$(sed '6!d' variables.conf)
+wifi_reg=$(sed '7!d' variables.conf)
+wifi_mac=$(sed '8!d' variables.conf)
+
+sudo ./create_ap $wifi_iface $tun $wifi_name $wifi_pass --country $wifi_reg --mac $wifi_mac --no-virt

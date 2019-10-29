@@ -1,0 +1,61 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+echo "This Is configuration file DON'T REMOVE IT" | cat > variables.conf
+
+read -p "Enter path to VPN1 config (~/vpn1config.ovpn) > " vpn1_conf
+cp -r -f $vpn1_conf vpn1.ovpn
+
+read -p "VPN1 with login pass? (y/n) > " vpn1_logpass
+
+if [[ ! $vpn1_logpass =~ ^[Nn]$ ]]; 
+then read -p "Enter VPN1 login (user) > " vpn1_login
+	echo $vpn1_login | cat > vpn1.conf
+	read -p "Enter VPN1 password (pass) > " vpn1_pass
+	echo $vpn1_pass | cat >> vpn1.conf
+
+elif [[ ! $vpn1_logpass =~ ^[Yy]$ ]]; 
+then if [ -f vpn1.conf ]; 
+		then sudo rm -r vpn1.conf
+	fi
+
+fi
+
+read -p "Enter path to VPN2 config (~/vpn2config.ovpn) > " vpn2_conf
+cp -r -f $vpn2_conf vpn2.ovpn
+
+read -p "VPN2 with login pass? (y/n) > " vpn2_logpass
+
+if [[ ! $vpn2_logpass =~ ^[Nn]$ ]]; 
+then read -p "Enter VPN2 login (user) > " vpn2_login
+	echo $vpn2_login | cat > vpn2.conf
+	read -p "Enter VPN2 password (pass) > " vpn2_pass
+	echo $vpn2_pass | cat >> vpn2.conf
+
+elif [[ ! $vpn2_logpass =~ ^[Yy]$ ]]; 
+then if [ -f vpn2.conf ]; 
+		then sudo rm -r vpn2.conf
+	fi
+
+fi
+
+read -p "Enter local IP (127.0.0.1) > " local_ip
+echo $local_ip | cat >> variables.conf
+
+read -p "Enter TOR port (9050) > " tor_port
+echo $tor_port | cat >> variables.conf
+
+read -p "Enter name of Wi-Fi interface (wlan1) > " wifi_iface
+echo $wifi_iface | cat >> variables.conf
+
+read -p "Enter hotspot name (HotSpot) > " wifi_name
+echo $wifi_name | cat >> variables.conf
+
+read -p "Enter hotspot password (minimum 8 characters) > " wifi_pass
+echo $wifi_pass | cat >> variables.conf
+
+read -p "Enter hotspot region (BZ) > " wifi_reg
+echo $wifi_reg | cat >> variables.conf
+
+read -p "Enter hotspot MAC (46:03:08:01:89:55) > " wifi_mac
+echo $wifi_mac | cat >> variables.conf
+

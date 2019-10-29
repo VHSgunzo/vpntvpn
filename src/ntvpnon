@@ -1,0 +1,23 @@
+#!/bin/bash
+sleep 10
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+local_ip=$(sed '2!d' variables.conf)
+tor_port=$(sed '3!d' variables.conf)
+
+tor_server="$local_ip $tor_port"
+tty | cat > /tmp/ttyvpn
+pwd | cat > /tmp/dist
+dist=$(cat /tmp/dist)
+
+sudo service tor start
+sleep 7
+xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar --hide-borders --working-directory=$dist -e "./nameON_Wi-Fi"
+
+if [ -f vpn2.conf ]; 
+	then 
+		sudo ./namespaced-openvpn --socks-proxy $tor_server  --config vpn2.ovpn --auth-user-pass vpn2.conf
+	else
+		sudo ./namespaced-openvpn --socks-proxy $tor_server  --config vpn2.ovpn
+fi

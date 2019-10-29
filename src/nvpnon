@@ -1,0 +1,17 @@
+#!/bin/bash
+sleep 10
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+tty | cat > /tmp/ttyvpn
+pwd | cat > /tmp/dist
+dist=$(cat /tmp/dist)
+
+xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar --hide-borders --working-directory=$dist -e "./notornameON_Wi-Fi"
+
+if [ -f vpn2.conf ]; 
+	then 
+		sudo ./namespaced-openvpn --config vpn2.ovpn --auth-user-pass vpn2.conf
+	else
+		sudo ./namespaced-openvpn --config vpn2.ovpn
+fi

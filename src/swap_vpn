@@ -1,0 +1,30 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+wdir=$(pwd)
+mv -f vpn1.ovpn /tmp/vpn2.ovpn
+mv -f vpn2.ovpn /tmp/vpn1.ovpn
+
+if [ -f vpn1.conf ]; 
+	then 
+		mv -f vpn1.conf /tmp/vpn2.conf
+fi
+
+if [ -f vpn2.conf ]; 
+	then 
+		mv -f vpn2.conf /tmp/vpn1.conf
+fi
+
+mv -f /tmp/vpn1.ovpn $wdir
+mv -f /tmp/vpn2.ovpn $wdir
+
+if [ -f /tmp/vpn1.conf ]; 
+	then 
+		mv -f /tmp/vpn1.conf $wdir
+fi
+
+if [ -f /tmp/vpn2.conf ]; 
+	then 
+		mv -f /tmp/vpn2.conf $wdir
+fi

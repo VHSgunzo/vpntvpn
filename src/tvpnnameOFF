@@ -1,0 +1,8 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+dist=$(cat /tmp/dist)
+
+xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar --hide-borders --working-directory=$dist -e "./nameOFF"
+sudo service tor stop

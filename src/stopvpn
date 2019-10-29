@@ -1,0 +1,20 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+sudo mv /etc/NetworkManager/NetworkManager.old /etc/NetworkManager/NetworkManager.conf
+nm_pid=$(sudo pidof NetworkManager)
+sudo kill -HUP $nm_pid
+
+hotspot=$(sed '1!d' /tmp/tty)
+wifi_iface=$(sed '4!d' variables.conf)
+
+sudo ./create_ap --stop $wifi_iface
+
+sudo ./ttyecho -n /dev/pts/$hotspot exit
+
+# Disable IP-forwarding.
+sudo sysctl -w net.ipv4.ip_forward=0
+
+# Remove trash
+rm -r /tmp/tty /tmp/dist /tmp/wifi_phy /tmp/ttyold /tmp/ttynew

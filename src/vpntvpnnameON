@@ -1,0 +1,15 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+pwd | cat > /tmp/dist
+dist=$(cat /tmp/dist)
+
+xfce4-terminal --geometry=62x24 --hide-scrollbar --hide-toolbar --working-directory=$dist -e "./ntvpnonname"
+
+if [ -f vpn1.conf ]; 
+	then 
+		sudo openvpn --config vpn1.ovpn --auth-user-pass vpn1.conf
+	else
+		sudo openvpn --config vpn1.ovpn
+fi

@@ -1,0 +1,10 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+set -x
+
+if [ -f vpn1.conf ]; 
+	then 
+		sudo openvpn --config vpn1.ovpn --auth-user-pass vpn1.conf
+	else
+		sudo openvpn --config vpn1.ovpn
+fi

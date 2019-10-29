@@ -1,0 +1,91 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
+export BLUE='\033[1;94m'
+export RED='\033[1;91m'
+
+title="$RED 		SWAPPED \n"
+prompt=
+options=("VPN2->Wi-Fi" "Namespace->VPN1->Wi-Fi" "VPN2->namespace->VPN1->Wi-Fi" "TOR->namespace->VPN1->Wi-Fi" "VPN2->TOR->namespace->VPN1->Wi-Fi" "VPN2" "namespace->VPN1" "VPN2->namespace->VPN1" "TOR->namespace->VPN1" "VPN2->TOR->namespace->VPN1")
+
+clear
+echo -e -n  "$title"
+PS3="$prompt "
+select opt in "${options[@]}" "Go Back"; do 
+
+    case "$REPLY" in
+
+	1 ) clear
+		echo -e -n "$BLUE VPN2->Wi-Fi \n"
+		./startvpn
+		clear
+		./stopvpn
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+    2 ) clear
+		echo -e -n "$BLUE Namespace->VPN1->Wi-Fi \n"
+		./vpnON
+		clear
+		./vpnOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+    3 ) clear
+		echo -e -n "$BLUE VPN2->namespace->VPN1->Wi-Fi \n"
+		./vpnvpnON
+		clear
+		./vpnvpnOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+    4 ) clear
+		echo -e -n "$BLUE TOR->namespace->VPN1->Wi-Fi \n"
+		./tvpnON
+		clear
+		./tvpnOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	5 ) clear
+		echo -e -n "$BLUE VPN2->TOR->namespace->VPN1->Wi-Fi \n"
+		./vpntvpnON
+		clear
+		./vpntvpnOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	6 ) clear
+		echo -e -n "$BLUE VPN2 \n"
+		./startvpnsys
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	7 ) clear
+		echo -e -n "$BLUE namespace->VPN1 \n"
+		./vpnnameON
+		clear
+		./vpnnameOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	8 ) clear
+		echo -e -n "$BLUE VPN2->namespace->VPN1 \n"
+		./vpnvpnnameON
+		clear
+		./vpnvpnnameOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	9 ) clear
+		echo -e -n "$BLUE TOR->namespace->VPN1 \n"
+		./tvpnnameON
+		clear
+		./tvpnnameOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+	10 ) clear
+		echo -e -n "$BLUE VPN2->TOR->namespace->VPN1 \n"
+		./vpntvpnnameON 
+		clear
+		./vpntvpnnameOFF
+		clear
+		echo -e -n  "$RED Press ENTER to continue \n";continue;;
+
+    $(( ${#options[@]}+1 )) ) echo -e -n  "$RED baack \n"; exit;;
+    *) echo -e -n  "$RED Invalid option. Try another one. \n";continue;;
+
+    esac
+
+done
