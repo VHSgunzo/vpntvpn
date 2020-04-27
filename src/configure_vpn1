@@ -18,21 +18,3 @@ then if [ -f vpn1.conf ];
 	fi
 
 fi
-
-read -p "Enter path to VPN2 config (~/vpn2config.ovpn) > " vpn2_conf
-cp -r -f $vpn2_conf vpn2.ovpn
-
-read -p "VPN2 with login pass? (y/n) > " vpn2_logpass
-
-if [[ ! $vpn2_logpass =~ ^[Nn]$ ]]; 
-then read -p "Enter VPN2 login (user) > " vpn2_login
-	echo $vpn2_login | cat > vpn2.conf
-	read -p "Enter VPN2 password (pass) > " vpn2_pass
-	echo $vpn2_pass | cat >> vpn2.conf
-
-elif [[ ! $vpn2_logpass =~ ^[Yy]$ ]]; 
-then if [ -f vpn2.conf ]; 
-		then sudo rm -r vpn2.conf
-	fi
-
-fi

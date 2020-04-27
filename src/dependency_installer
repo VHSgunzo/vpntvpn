@@ -16,7 +16,7 @@ then dir_script=$(pwd | rev | cut -c 5- | rev)
 	sudo mv -f /tmp/dir_script /bin/vpntvpn
 	sudo chmod +x /bin/vpntvpn
 	clear
-	echo -e -n "$RED After close this just write in terminal vpntvpn"
+	echo -e -n "$RED After close this just write vpntvpn in xfce4-terminal"
 	sleep 5
 
 elif [[ ! $symblink =~ ^[Yy]$ ]];

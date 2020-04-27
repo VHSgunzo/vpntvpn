@@ -1,11 +1,43 @@
-# vpntvpn
-This script connects to the first VPN, then connects to the TOR, creates a namespace and connects to the second VPN, this gives the connection VPN-> TOR-> VPN. You also have the opportunity to create a Wi-Fi access point with this chain.
-For proper operation, you need to run this script from xfce4-terminal, it will be installed along with the rest of the dependencies when you select the appropriate script menu item.
-To get started:
+# VPNTVPN
 
+## Features:
+```
+* Easy setup
+* Automatic installation of dependencies
+* Support VPN with password and passwordless
+* Wi-Fi access point settings
+* Сhange mac address Wi-Fi access points
+* Openvpn standard VPN connection (VPN)
+* Openvpn standard VPN connection with Wi-Fi access point (VPN->Wi-Fi)
+* Creates a namespace for VPN (Namespace->VPN)
+* Creates a namespace for VPN with Wi-Fi access point (Namespace->VPN->Wi-Fi)
+* Openvpn standard VPN connection and namespace for second VPN (VPN1->namespace->VPN2)
+* Creates a namespace for a VPN connection through TOR (TOR->namespace->VPN)
+* Creates a namespace with Wi-Fi access point for a VPN connection through TOR (TOR->namespace->VPN->Wi-Fi)
+* Standard VPN connection and creates namespace for second VPN connection through TOR (VPN1->TOR->namespace->VPN2)
+* Standard VPN connection and creates namespace with Wi-Fi access point for second VPN connection through TOR (VPN1->TOR->namespace->VPN2->Wi-Fi)
+* Quick swap VPN configs
+```
+## Supports:
+```
+All Debian-based distributions
+```
+## To get started:
+* **Download the latest revision**
+```
 git clone https://github.com/VHSgunzo/vpntvpn.git
+```
+* **Switch to tool's directory**
+```
 cd vpntvpn
+```
+* **Run ssh2tun**
+```
 ./vpntvpn
-
-select the first item in the script menu to install the necessary dependencies.
-After installing the dependencies, open xfce4-terminal, write vpntvpn and select the second item from the script menu to configure it and use
+```
+* Select the "Settings" item in the script menu
+* Fix SUDO passwordless
+* Install the necessary dependencies
+* Configure script
+* **Run this script from xfce4-terminal (will be installed along with the rest of the dependencies)**
+* Use it
