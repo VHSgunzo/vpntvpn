@@ -17,6 +17,7 @@
 * Standard VPN connection and creates namespace for second VPN connection through TOR (VPN1->TOR->namespace->VPN2)
 * Standard VPN connection and creates namespace with Wi-Fi access point for second VPN connection through TOR (VPN1->TOR->namespace->VPN2->Wi-Fi)
 * Quick swap VPN configs
+* Live monitoring TOR connection
 ```
 ## Supports:
 ```
