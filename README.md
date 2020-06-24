@@ -32,7 +32,7 @@ git clone https://github.com/VHSgunzo/vpntvpn.git
 ```
 cd vpntvpn
 ```
-* **Run ssh2tun**
+* **Run vpntvpn**
 ```
 ./vpntvpn
 ```
